@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BudgetService.Application/BudgetService.Application.csproj" />
+    <Project Path="src/BudgetService.Domain/BudgetService.Domain.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BudgetService.Application.Tests/BudgetService.Application.Tests.csproj" />
+    <Project Path="tests/BudgetService.Domain.Tests/BudgetService.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
