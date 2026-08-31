@@ -2,9 +2,11 @@
   <Folder Name="/src/">
     <Project Path="src/BudgetService.Application/BudgetService.Application.csproj" />
     <Project Path="src/BudgetService.Domain/BudgetService.Domain.csproj" />
+    <Project Path="src/BudgetService.Infrastructure/BudgetService.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/BudgetService.Application.Tests/BudgetService.Application.Tests.csproj" />
     <Project Path="tests/BudgetService.Domain.Tests/BudgetService.Domain.Tests.csproj" />
+    <Project Path="tests/BudgetService.Infrastructure.Tests/BudgetService.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>

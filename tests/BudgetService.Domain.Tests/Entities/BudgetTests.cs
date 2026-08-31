@@ -93,34 +93,34 @@ public sealed class BudgetTests
         // Assert
         act.Should().Throw<DomainException>();
     }
-[Fact]
-public void Should_Rehydrate_Budget_When_Persisted_Data_Is_Valid()
-{
-    // Arrange
-    var id = Guid.NewGuid();
-    const string name = "Internet";
-    const decimal amount = 100m;
-    var createdAt = new DateTime(
-        2026,
-        8,
-        28,
-        12,
-        0,
-        0,
-        DateTimeKind.Utc);
+    [Fact]
+    public void Should_Rehydrate_Budget_When_Persisted_Data_Is_Valid()
+    {
+        // Arrange
+        var id = Guid.NewGuid();
+        const string name = "Internet";
+        const decimal amount = 100m;
+        var createdAt = new DateTime(
+            2026,
+            8,
+            28,
+            12,
+            0,
+            0,
+            DateTimeKind.Utc);
 
-    // Act
-    var budget = Budget.Rehydrate(
-        id,
-        name,
-        amount,
-        createdAt);
+        // Act
+        var budget = Budget.Rehydrate(
+            id,
+            name,
+            amount,
+            createdAt);
 
-    // Assert
-    budget.Id.Should().Be(id);
-    budget.Name.Should().Be(name);
-    budget.Amount.Amount.Should().Be(amount);
-    budget.CreatedAt.Should().Be(createdAt);
-}
+        // Assert
+        budget.Id.Should().Be(id);
+        budget.Name.Should().Be(name);
+        budget.Amount.Amount.Should().Be(amount);
+        budget.CreatedAt.Should().Be(createdAt);
+    }
 
 }
