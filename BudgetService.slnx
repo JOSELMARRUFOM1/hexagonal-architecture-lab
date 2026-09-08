@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/BudgetService.Api/BudgetService.Api.csproj" />
     <Project Path="src/BudgetService.Application/BudgetService.Application.csproj" />
     <Project Path="src/BudgetService.Domain/BudgetService.Domain.csproj" />
     <Project Path="src/BudgetService.Infrastructure/BudgetService.Infrastructure.csproj" />

@@ -480,3 +480,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Runtime data
+src/BudgetService.Api/data/budgets.json
