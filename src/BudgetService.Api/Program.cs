@@ -2,11 +2,27 @@ using BudgetService.Application.Abstractions.Persistence;
 using BudgetService.Application.UseCases.Budgets.Create;
 using BudgetService.Application.UseCases.Budgets.GetAll;
 using BudgetService.Infrastructure.Persistence.Json;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer(
+        (document, context, cancellationToken) =>
+        {
+            document.Servers =
+            [
+                new OpenApiServer
+                {
+                    Url = "/"
+                }
+            ];
+
+            return Task.CompletedTask;
+        });
+});
 
 builder.Services
     .AddOptions<JsonStorageOptions>()
