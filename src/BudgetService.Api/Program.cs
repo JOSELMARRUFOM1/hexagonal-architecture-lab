@@ -1,7 +1,8 @@
 using BudgetService.Application.Abstractions.Persistence;
 using BudgetService.Application.UseCases.Budgets.Create;
 using BudgetService.Application.UseCases.Budgets.GetAll;
-using BudgetService.Infrastructure.Persistence.Json;
+using BudgetService.Infrastructure.Persistence.PostgreSql;
+using Npgsql;
 using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,19 +25,32 @@ builder.Services.AddOpenApi(options =>
         });
 });
 
-builder.Services
-    .AddOptions<JsonStorageOptions>()
-    .Bind(
-        builder.Configuration.GetSection(
-            JsonStorageOptions.SectionName))
-    .Validate(
-        options => !string.IsNullOrWhiteSpace(options.FilePath),
-        "JSON storage file path is required.")
-    .ValidateOnStart();
+var postgresPassword = builder.Configuration["Postgres:Password"];
 
-builder.Services.AddSingleton<
+if (string.IsNullOrWhiteSpace(postgresPassword))
+{
+    throw new InvalidOperationException(
+        "PostgreSQL password is required.");
+}
+
+var postgresConnection = new NpgsqlConnectionStringBuilder
+{
+    Host = builder.Configuration["Postgres:Host"]
+        ?? "budget-postgres-dev",
+    Port = 5432,
+    Database = builder.Configuration["Postgres:Database"]
+        ?? "budgetdb",
+    Username = builder.Configuration["Postgres:Username"]
+        ?? "budgetuser",
+    Password = postgresPassword
+};
+
+builder.Services.AddSingleton<NpgsqlDataSource>(_ =>
+    NpgsqlDataSource.Create(postgresConnection.ConnectionString));
+
+builder.Services.AddScoped<
     IBudgetRepository,
-    JsonBudgetRepository>();
+    PostgresBudgetRepository>();
 
 builder.Services.AddScoped<CreateBudgetUseCase>();
 builder.Services.AddScoped<GetAllBudgetsUseCase>();
